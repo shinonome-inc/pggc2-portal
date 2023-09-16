@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: server
+        working-directory: server/app
     steps:
       - uses: actions/checkout@v4
       - uses: psf/black@stable
         with:
           options: "--check --verbose"
-          src: "./app"
+          src: "./"
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11
       - name: Checkout PyTorch

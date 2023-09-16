@@ -1,4 +1,4 @@
-name: Linter-server
+name: Test-server
 on:
   pull_request:
     branches: 
