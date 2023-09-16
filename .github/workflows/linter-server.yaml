@@ -20,6 +20,9 @@ jobs:
           src: "./"
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server/app
     steps:
       - name: Setup Python
         uses: actions/setup-python@v4
