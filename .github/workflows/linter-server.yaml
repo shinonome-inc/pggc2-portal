@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: server/app
+        working-directory: server
     steps:
       - uses: actions/checkout@v4
       - uses: psf/black@stable
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: server/app
+        working-directory: server
     steps:
       - name: Setup Python
         uses: actions/setup-python@v4
