@@ -1,0 +1,69 @@
+- model: teams.TeamRole
+  pk: 0
+  fields:
+    name: Admin
+- model: teams.TeamRole
+  pk: 1
+  fields:
+    name: Tester
+- model: teams.TeamRole
+  pk: 2
+  fields:
+    name: Contestant
+
+- model: problems.Category
+  pk: 0
+  fields:
+    name: 課題解決
+- model : problems.Category
+  pk: 1
+  fields:
+    name: 課題考察
+
+- model: problems.Difficulty
+  pk: 0
+  fields:
+    name: Tutorial
+    point: 0
+- model: problems.Difficulty
+  pk: 1
+  fields:
+    name: Beginner
+    point: 2
+- model: problems.Difficulty
+  pk: 2
+  fields:
+    name: Easy
+    point: 4
+- model: problems.Difficulty
+  pk: 3
+  fields:
+    name: Medium
+    point: 6
+- model: problems.Difficulty
+  pk: 4
+  fields:
+    name: Hard
+    point: 8
+- model: problems.Difficulty
+  pk: 5
+  fields:
+    name: Insane
+    point: 10
+
+- model: submissions.Status
+  pk: 0
+  fields:
+    name: judging
+- model: submissions.Status
+  pk: 1
+  fields:
+    name: correct
+- model: submissions.Status
+  pk: 2
+  fields:
+    name: incorrect
+- model: submissions.Status
+  pk: 3
+  fields:
+    name: partial
