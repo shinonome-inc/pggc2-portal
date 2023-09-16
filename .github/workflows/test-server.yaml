@@ -26,6 +26,7 @@ jobs:
     - name: Run postgres
       run: |
         touch .env
+        docker volume create pggc-data
         docker compose up -d db
     - name: Run Tests
       run: |
