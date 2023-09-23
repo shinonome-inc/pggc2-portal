@@ -7,8 +7,6 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
-      - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/data:delegated
     healthcheck:
@@ -17,6 +15,12 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  cache:
+    container_name: pggc2_cache
+    image: redis:7.2-alpine
+    volumes:
+      - cache-data:/data
 
   web:
     container_name: pggc2_web
@@ -35,10 +39,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      cache:
+        condition: service_started
     command: >
       /bin/sh -c
       'python manage.py runserver 0.0.0.0:8080'
 volumes:
   db-data:
     name: pggc-data
+    external: true
+  cache-data:
+    name: pggc-cache
     external: true
