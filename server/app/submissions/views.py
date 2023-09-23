@@ -17,12 +17,12 @@ class SubmissionCreateView(generics.CreateAPIView):
 
 
 class SubmissionRetrieveView(generics.RetrieveAPIView):
-    queryset = Submission.objects.all()
+    queryset = Submission.objects.prefetch_related("team", "problem", "status").all()
     serializer_class = SubmissionSerializer
 
 
 class SubmissionUpdateView(generics.UpdateAPIView):
-    queryset = Submission.objects.all()
+    queryset = Submission.objects.prefetch_related("team", "problem", "status").all()
     serializer_class = SubmissionUpdateSerializer
 
 
