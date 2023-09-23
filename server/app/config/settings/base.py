@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Local
+    "pgrit.apps.PGritConfig",
     "users.apps.UsersConfig",
     "teams.apps.TeamsConfig",
     "problems.apps.ProblemsConfig",
@@ -187,5 +188,8 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
     ],
 }
