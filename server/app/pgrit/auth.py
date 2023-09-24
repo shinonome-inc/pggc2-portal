@@ -8,7 +8,7 @@ from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication
 
 from users.models import User
-
+from teams.models import Team
 
 class PGritAuthentication(BaseAuthentication):
     def authenticate(self, request):
@@ -41,10 +41,8 @@ class SessionAuthentication(BaseAuthentication):
             decoded = jwt.decode(token, secret, algorithms="HS256")
         except:
             raise exceptions.AuthenticationFailed("token is not valid.")
-        print(decoded, flush=True)
         username = decoded.get("username")
         expired = decoded.get("exp")
-        print(expired, int(time.time()), flush=True)
         if expired < int(time.time()):
             raise exceptions.AuthenticationFailed("time is expired")
         users = User.objects.filter(username=username)
@@ -53,6 +51,35 @@ class SessionAuthentication(BaseAuthentication):
         else:
             raise ValueError("user is not exist.")
         return (user, None)
+
+
+class AdminAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        token = request.headers.get("Authorization", "").replace("Bearer ", "")
+        if token == "":
+            raise exceptions.AuthenticationFailed("token is not set.")
+        secret = config("DJANGO_SECERT_KEY", "")
+        try:
+            decoded = jwt.decode(token, secret, algorithms="HS256")
+        except:
+            raise exceptions.AuthenticationFailed("token is not valid.")
+        username = decoded.get("username")
+        expired = decoded.get("exp")
+        if expired < int(time.time()):
+            raise exceptions.AuthenticationFailed("time is expired")
+        users = User.objects.filter(username=username)
+        if users.exists():
+            user = users.first()
+        else:
+            raise ValueError("user is not exist.")
+        if user.team != None:
+            team = Team.objects.get(id=user.team.id)
+            if str(team.role) == "Admin":
+                return (user, None)
+            else:
+                raise exceptions.AuthenticationFailed("team is not admin.")
+        else:
+            raise exceptions.AuthenticationFailed("user is not belonging to admin")
 
 
 def generate_jwt(user):

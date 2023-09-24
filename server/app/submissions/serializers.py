@@ -12,7 +12,7 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Submission
-        fields = ("team", "problem", "status", "score")
+        fields = ("id", "team", "problem", "status", "score")
 
 
 class SubmissionUpdateSerializer(serializers.ModelSerializer):
